@@ -1,17 +1,26 @@
 import { Interaction, Collection } from "discord.js";
 import MundoBot from "../../structures/MundoBot";
 
-export default {
+// Define una interfaz para la estructura del evento
+interface EventInteractionCreate {
+  name: string;
+  run: (client: MundoBot, interaction: Interaction) => void;
+}
+
+const eventInteractionCreate: EventInteractionCreate = {
   name: "interactionCreate",
   async run(client: MundoBot, interaction: Interaction) {
     if (!interaction.isChatInputCommand()) return;
 
     const command = client.slashCommands.get(interaction.commandName);
 
-    if (!interaction.guildId) return interaction.reply({
-        content: "👋 `|` Por motivos personales, prefiero no hacer comandos por privado, gracias. ✨",
-        ephemeral: true
-    })
+    if (!interaction.guildId) {
+      return interaction.reply({
+        content:
+          "👋 `|` Por motivos personales, prefiero no hacer comandos por privado, gracias. ✨",
+        ephemeral: true,
+      });
+    }
 
     const { cooldowns } = client;
 
@@ -32,7 +41,7 @@ export default {
       if (now < expirationTime) {
         const expiredTimestamp = Math.round(expirationTime / 1000);
         return interaction.reply({
-          content: `Please wait, you are on a cooldown for \`${command?.name}\`. You can use it again <t:${expiredTimestamp}:R>.`,
+          content: `Por favor, espera, estás en un enfriamiento para \`${command?.name}\`. Puedes usarlo nuevamente <t:${expiredTimestamp}:R>.`,
           ephemeral: true,
         });
       }
@@ -44,8 +53,10 @@ export default {
     try {
       await command?.run(client, interaction);
     } catch (error) {
-      console.error(`Error executing ${interaction.commandName}`);
+      console.error(`Error al ejecutar ${interaction.commandName}`);
       console.error(error);
     }
   },
 };
+
+export default eventInteractionCreate;

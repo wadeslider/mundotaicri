@@ -12,8 +12,29 @@ import "dotenv/config";
 import mongoose from "mongoose";
 
 export interface LocalSlashCommandContent {
+  type?: 1 | 2 | 3;
   name: string;
+  name_localizations?: [];
   description: string;
+  description_localizations?: [];
+  options?: [
+    {
+      name: string;
+      description: string;
+      type: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11;
+      required: boolean;
+      choices?: [
+        {
+          name: string;
+          value: string;
+        }
+      ]
+    }
+  ];
+  default_member_permissions?: string;
+  dm_permission?: boolean;
+  default_permission?: boolean;
+  nsfw?: boolean;
   cooldown?: number;
   run(
     ...args: (MundoBot | ChatInputCommandInteraction<CacheType>)[]
