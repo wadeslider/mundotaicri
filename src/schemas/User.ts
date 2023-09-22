@@ -2,7 +2,7 @@ import mongoose, { Schema, Document } from "mongoose";
 
 interface IUser extends Document {
     memo: number;
-    username: string;
+    userId: string;
     hive: string;
     tokens: any[];
 }
@@ -12,7 +12,7 @@ const userSchema = new Schema<IUser>({
         type: Number,
         required: true,
     },
-    username: {
+    userId: {
         type: String,
         required: true,
     },
@@ -22,7 +22,7 @@ const userSchema = new Schema<IUser>({
     },
     tokens: {
         type: Schema.Types.Mixed, 
-        required: true,
+        default: {}
     },
 });
 
