@@ -13,7 +13,7 @@ export default class AirdropsManager {
         addParticipantButtonId: "adp.add.participant",
         cronCheckTime: 1000 * 60 * 60, // 1 hour,
         logChannelId: "1093561602575450132",
-        cronDebug: true,
+        cronDebug: false,
     }
 
     cron = new AirdropsCronManager(this)
@@ -26,5 +26,9 @@ export default class AirdropsManager {
 
     constructor(public client: MundoBot) {
         this.cron.loop()
+    }
+
+    getCurrencyEmoji(name: string) {
+        return this.client.emojis.cache.find((emoji) => emoji?.name == name) ?? "❔";
     }
 }

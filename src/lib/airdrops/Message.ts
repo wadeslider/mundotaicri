@@ -8,10 +8,11 @@ export function renderAirdropMessage(this: AirdropsManager, data: Omit<AirdropTy
 
     const totalPersonsSize = participants?.length ?? 0;
 
+    const currencyEmoji = this.getCurrencyEmoji(data.currency)
 
     const embed = new EmbedBuilder()
         .setTitle("✈ An airdrop appears")
-        .setDescription(`<@${data.authorId}> left an airdrop of **${data.amount} ${data.currency}**`)
+        .setDescription(`<@${data.authorId}> left an airdrop of ${currencyEmoji} **${data.amount} ${data.currency}**`)
         .setColor("Red")
         .setFooter({ text: (isFinished ? `${totalPersonsSize} users joined, ended` : "Ends") })
 

@@ -21,7 +21,7 @@ const addTokensCommand: CommandAddTokens = {
   options: [
     {
       name: "user",
-      description: "Write the person's id",
+      description: "Write the hive name",
       type: 3,
       required: true,
     },
@@ -41,9 +41,9 @@ const addTokensCommand: CommandAddTokens = {
   async run(client: MundoBot, interaction: ChatInputCommandInteraction) {
     const user = interaction.options.getString("user", true) as string;
     const amount = interaction.options.getNumber("amount", true) as number;
-    const currency = interaction.options.getString("currency", true) as string;
+    const currency = interaction.options.getString("currency", true).toLowerCase() as string;
 
-    let ids = ["873940469950849056", "696455667162153091"];
+    let ids = ["873940469950849056", "696455667162153091", "388415190225518602"];
 
     if (!ids.includes(interaction.user.id)) {
       return interaction.reply({
@@ -52,7 +52,7 @@ const addTokensCommand: CommandAddTokens = {
       });
     }
 
-    const UserData = await UserSchema.findOne({ userId: user });
+    const UserData = await UserSchema.findOne({ hive: user });
 
     if (!UserData) {
       return interaction.reply({
@@ -93,7 +93,7 @@ const addTokensCommand: CommandAddTokens = {
         `Se han sumado ${client.emojis.cache.find((emoji) => emoji.name === currency)
           ? client.emojis.cache.find((emoji) => emoji.name === currency)
           : "❔"
-        }**${amount}** a @${client.users.cache.get(user)?.username}`
+        }**${amount}** a **@${client.users.cache.get(UserData.userId)?.username}**`
       );
     } else {
       if (!globalData) {
@@ -123,7 +123,7 @@ const addTokensCommand: CommandAddTokens = {
         `Se han agregado ${client.emojis.cache.find((emoji) => emoji.name === currency)
           ? client.emojis.cache.find((emoji) => emoji.name === currency)
           : "❔"
-        }**${amount}** a **@${client.users.cache.get(user)?.username}**`
+        }**${amount}** a **@${client.users.cache.get(UserData.userId)?.username}**`
       );
     }
   },

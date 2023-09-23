@@ -37,7 +37,7 @@ const registerCommand: CommandRegister = {
     if (hiveData)
       return interaction.reply({
         content:
-          ":x: `|` Esa cuenta de hive, ya esta registrada en otra cuenta.",
+          ":x: `|` That hive account is already registered in another account.",
         ephemeral: true,
       });
 
