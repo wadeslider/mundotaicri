@@ -90,10 +90,9 @@ const addTokensCommand: CommandAddTokens = {
       });
 
       interaction.reply(
-        `Se han sumado ${
-          client.emojis.cache.find((emoji) => emoji.name === currency)
-            ? client.emojis.cache.find((emoji) => emoji.name === currency)
-            : "❔"
+        `Se han sumado ${client.emojis.cache.find((emoji) => emoji.name === currency)
+          ? client.emojis.cache.find((emoji) => emoji.name === currency)
+          : "❔"
         }**${amount}** a @${client.users.cache.get(user)?.username}`
       );
     } else {
@@ -121,10 +120,9 @@ const addTokensCommand: CommandAddTokens = {
       });
 
       interaction.reply(
-        `Se han agregado ${
-          client.emojis.cache.find((emoji) => emoji.name === currency)
-            ? client.emojis.cache.find((emoji) => emoji.name === currency)
-            : "❔"
+        `Se han agregado ${client.emojis.cache.find((emoji) => emoji.name === currency)
+          ? client.emojis.cache.find((emoji) => emoji.name === currency)
+          : "❔"
         }**${amount}** a **@${client.users.cache.get(user)?.username}**`
       );
     }

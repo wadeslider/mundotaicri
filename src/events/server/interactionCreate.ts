@@ -1,4 +1,4 @@
-import { Interaction, Collection } from "discord.js";
+import { Collection, Interaction } from "discord.js";
 import MundoBot from "../../structures/MundoBot";
 
 // Define una interfaz para la estructura del evento
@@ -10,6 +10,11 @@ interface EventInteractionCreate {
 const eventInteractionCreate: EventInteractionCreate = {
   name: "interactionCreate",
   async run(client: MundoBot, interaction: Interaction) {
+
+    if (interaction.isButton() && interaction.customId == client.Airdrops.config.addParticipantButtonId) {
+      client.Airdrops.ButtonInteraction(interaction)
+    }
+
     if (!interaction.isChatInputCommand()) return;
 
     const command = client.slashCommands.get(interaction.commandName);

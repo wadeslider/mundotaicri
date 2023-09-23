@@ -1,14 +1,9 @@
-import { Schema, model, Document } from "mongoose";
+import { InferSchemaType, Schema, model } from "mongoose";
 
-interface IAirdrop extends Document {
-    _id: string;
-    currency: string;
-    endAt: number;
-    authorId: string;
-    amount: number;
-}
-
-const airdropSchema = new Schema<IAirdrop>({
+const schema = new Schema({
+    /**
+     * channelId/messageId
+     */
     _id: {
         type: String,
         required: true,
@@ -19,7 +14,7 @@ const airdropSchema = new Schema<IAirdrop>({
     },
     endAt: {
         type: Number,
-        required: true,
+        required: true
     },
     authorId: {
         type: String,
@@ -28,9 +23,9 @@ const airdropSchema = new Schema<IAirdrop>({
     amount: {
         type: Number,
         required: true,
-    },
-});
+    }
+})
 
-const AirdropsModel = model<IAirdrop>("Airdrops", airdropSchema);
-
+const AirdropsModel = model("Airdrops", schema)
+export type AirdropType = InferSchemaType<typeof schema>;
 export default AirdropsModel;

@@ -7,33 +7,36 @@ import {
   ChatInputCommandInteraction,
   ColorResolvable,
   HexColorString,
+  RESTPostAPIApplicationCommandsJSONBody,
+  RESTPostAPIChatInputApplicationCommandsJSONBody,
 } from "discord.js";
 import "dotenv/config";
 import mongoose from "mongoose";
+import AirdropsManager from "../lib/airdrops/AirdropsManager";
 
-export interface LocalSlashCommandContent {
-  type?: 1 | 2 | 3;
-  name: string;
-  name_localizations?: [];
-  description: string;
-  description_localizations?: [];
-  options?: [
-    {
-      name: string;
-      description: string;
-      type: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11;
-      required: boolean;
-      choices?: [
-        {
-          name: string;
-          value: string;
-        }
-      ]
-    }
-  ];
-  default_member_permissions?: string;
-  dm_permission?: boolean;
-  default_permission?: boolean;
+export interface LocalSlashCommandContent extends RESTPostAPIChatInputApplicationCommandsJSONBody {
+  // type?: 1 | 2 | 3;
+  // name: string;
+  // name_localizations?: [];
+  // description: string;
+  // description_localizations?: [];
+  // options?: [
+  //   {
+  //     name: string;
+  //     description: string;
+  //     type: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11;
+  //     required: boolean;
+  //     choices?: [
+  //       {
+  //         name: string;
+  //         value: string;
+  //       }
+  //     ]
+  //   }
+  // ];
+  // default_member_permissions?: string;
+  // dm_permission?: boolean;
+  // default_permission?: boolean;
   nsfw?: boolean;
   cooldown?: number;
   run(
@@ -45,6 +48,10 @@ export default class MundoBot extends Client {
   public slashCommands: Collection<string, LocalSlashCommandContent>;
   public cooldowns: Collection<string, Collection<string, number>>;
   public color: HexColorString;
+
+
+  globalBotId = "1105490966149873735";
+  Airdrops = new AirdropsManager(this);
 
   public constructor(options: ClientOptions) {
     super(options);

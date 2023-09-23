@@ -1,11 +1,7 @@
-import { Schema, model, Document } from "mongoose";
+import { Schema, model } from "mongoose";
 
-interface IAirdropsParticipant extends Document {
-    userId: string;
-    airdropId: string;
-}
-
-const airdropsParticipantSchema = new Schema<IAirdropsParticipant>({
+const schema = new Schema({
+    /** user's id */
     userId: {
         type: String,
         required: true,
@@ -14,8 +10,8 @@ const airdropsParticipantSchema = new Schema<IAirdropsParticipant>({
         type: String,
         required: true,
     },
-});
+})
 
-const AirdropsParticipantsModel = model<IAirdropsParticipant>("AirdropsParticipant", airdropsParticipantSchema);
+const AirdropsParticipantsModel = model("AirdropsParticipant", schema)
 
 export default AirdropsParticipantsModel;
