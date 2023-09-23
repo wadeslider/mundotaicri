@@ -43,7 +43,7 @@ const addTokensCommand: CommandAddTokens = {
     const amount = interaction.options.getNumber("amount", true) as number;
     const currency = interaction.options.getString("currency", true).toLowerCase() as string;
 
-    let ids = ["873940469950849056", "696455667162153091", "388415190225518602"];
+    let ids = ["873940469950849056", "696455667162153091"];
 
     if (!ids.includes(interaction.user.id)) {
       return interaction.reply({
