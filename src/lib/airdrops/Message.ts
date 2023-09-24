@@ -13,7 +13,7 @@ export function renderAirdropMessage(this: AirdropsManager, data: Omit<AirdropTy
     const embed = new EmbedBuilder()
         .setTitle("✈ An airdrop appears")
         .setDescription(`<@${data.authorId}> left an airdrop of ${currencyEmoji} **${data.amount} ${data.currency}**`)
-        .setColor("Red")
+        .setColor(this.client.color)
         .setFooter({ text: (isFinished ? `${totalPersonsSize} users joined, ended` : "Ends") })
 
     const messagePayload: MessageCreateOptions = { embeds: [embed], components: [] };
@@ -29,7 +29,7 @@ export function renderAirdropMessage(this: AirdropsManager, data: Omit<AirdropTy
                 const mentionLength = 24;
                 const maxEmbedDescriptionLength = 2048;
 
-                embed.data.description += ` has been collected by \n\n`;
+                embed.data.description += ` has been collected by `;
 
                 const maxMentions = Math.ceil((maxEmbedDescriptionLength - (embed.data.description + andOthersText).length) / mentionLength)
 

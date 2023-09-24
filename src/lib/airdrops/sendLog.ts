@@ -11,7 +11,7 @@ export default async function sendAirdropLogMessage(this: AirdropsManager, int: 
 
 
     const embed = new EmbedBuilder()
-        .setColor("Red")
+        .setColor(client.color)
         .setTitle("✈ `|` Se ha hecho un airdrop.")
         .addFields(
             {

@@ -1,4 +1,3 @@
-
 import { Routes } from "discord.js";
 import AirdropsModel, { AirdropType } from "../../schemas/Airdrop.js";
 import AirdropsManager from "./AirdropsManager.js";

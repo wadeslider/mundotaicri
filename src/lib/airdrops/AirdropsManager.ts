@@ -12,7 +12,7 @@ export default class AirdropsManager {
     config = {
         addParticipantButtonId: "adp.add.participant",
         cronCheckTime: 1000 * 60 * 60, // 1 hour,
-        logChannelId: "1093561602575450132",
+        logChannelId: "1121836001216700426",
         cronDebug: false,
     }
 

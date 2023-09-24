@@ -1,4 +1,8 @@
-import { ChatInputCommandInteraction } from "discord.js";
+import {
+  ChatInputCommandInteraction,
+  EmbedBuilder,
+  TextChannel,
+} from "discord.js";
 import MundoBot from "../../structures/MundoBot";
 import UserSchema from "../../schemas/User";
 
@@ -41,7 +45,9 @@ const addTokensCommand: CommandAddTokens = {
   async run(client: MundoBot, interaction: ChatInputCommandInteraction) {
     const user = interaction.options.getString("user", true) as string;
     const amount = interaction.options.getNumber("amount", true) as number;
-    const currency = interaction.options.getString("currency", true).toLowerCase() as string;
+    const currency = interaction.options
+      .getString("currency", true)
+      .toLowerCase() as string;
 
     let ids = ["873940469950849056", "696455667162153091"];
 
@@ -89,11 +95,38 @@ const addTokensCommand: CommandAddTokens = {
         },
       });
 
+      (client.channels.cache.get("1121927676966481970") as TextChannel).send({
+        embeds: [
+          new EmbedBuilder()
+            .setColor(client.color)
+            .setTitle("➕ `|` Se ha agregado dinero")
+            .setDescription(
+              `El usuario **${interaction.user.username}** ha agregado ${
+                client.emojis.cache.find((emoji) => emoji.name === currency)
+                  ? client.emojis.cache.find((emoji) => emoji.name === currency)
+                  : "❔"
+              }**${amount}** a **@${
+                client.users.cache.get(UserData.userId)?.username
+              }**.`
+            )
+            .setFooter({
+              text: client.user?.username as string,
+              iconURL: client.user?.displayAvatarURL({
+                size: 4096,
+              }),
+            })
+            .setTimestamp(),
+        ],
+      });
+
       interaction.reply(
-        `Se han sumado ${client.emojis.cache.find((emoji) => emoji.name === currency)
-          ? client.emojis.cache.find((emoji) => emoji.name === currency)
-          : "❔"
-        }**${amount}** a **@${client.users.cache.get(UserData.userId)?.username}**`
+        `Se han sumado ${
+          client.emojis.cache.find((emoji) => emoji.name === currency)
+            ? client.emojis.cache.find((emoji) => emoji.name === currency)
+            : "❔"
+        }**${amount}** a **@${
+          client.users.cache.get(UserData.userId)?.username
+        }**`
       );
     } else {
       if (!globalData) {
@@ -119,11 +152,38 @@ const addTokensCommand: CommandAddTokens = {
         },
       });
 
+      (client.channels.cache.get("1121927676966481970") as TextChannel).send({
+        embeds: [
+          new EmbedBuilder()
+            .setColor(client.color)
+            .setTitle("➕ `|` Se ha agregado dinero")
+            .setDescription(
+              `El usuario **${interaction.user.username}** ha agregado ${
+                client.emojis.cache.find((emoji) => emoji.name === currency)
+                  ? client.emojis.cache.find((emoji) => emoji.name === currency)
+                  : "❔"
+              }**${amount}** a **@${
+                client.users.cache.get(UserData.userId)?.username
+              }**.`
+            )
+            .setFooter({
+              text: client.user?.username as string,
+              iconURL: client.user?.displayAvatarURL({
+                size: 4096,
+              }),
+            })
+            .setTimestamp(),
+        ],
+      });
+
       interaction.reply(
-        `Se han agregado ${client.emojis.cache.find((emoji) => emoji.name === currency)
-          ? client.emojis.cache.find((emoji) => emoji.name === currency)
-          : "❔"
-        }**${amount}** a **@${client.users.cache.get(UserData.userId)?.username}**`
+        `Se han agregado ${
+          client.emojis.cache.find((emoji) => emoji.name === currency)
+            ? client.emojis.cache.find((emoji) => emoji.name === currency)
+            : "❔"
+        }**${amount}** a **@${
+          client.users.cache.get(UserData.userId)?.username
+        }**`
       );
     }
   },
